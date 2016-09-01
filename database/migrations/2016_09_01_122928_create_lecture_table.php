@@ -14,6 +14,8 @@ class CreateLectureTable extends Migration
     {
         Schema::create('lecture', function (Blueprint $table) {
             $table->increments('id');
+            $table->foreign('course_id')->references('id')->on('course');
+            $table->string('file');
             $table->timestamps();
         });
     }
