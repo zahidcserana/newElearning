@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLectureTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,12 @@ class CreateLectureTable extends Migration
      */
     public function up()
     {
-        Schema::create('lecture', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('course_id');
-            $table->foreign('course_id')->references('id')->on('course');
-            $table->string('file');
+            $table->integer('lecture_id');
+            $table->integer('co_ordinator_id');
+            $table->string('name');
+            $table->string('location');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateLectureTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lecture');
+        Schema::drop('files');
     }
 }

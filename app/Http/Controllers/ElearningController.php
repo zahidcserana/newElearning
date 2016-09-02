@@ -26,9 +26,7 @@ class ElearningController extends Controller
 		$password = md5($password);
 		$registerCheckObj = new user;
 		$registerCheck = $registerCheckObj->GetLogInInfo($email, $password);
-		$memberId = $registerCheck->id;
-		$statusCheckingObj = new token;
-		$statusChecking = $statusCheckingObj->StatusCheck($memberId);
+		
 		$rules = [
 	          'email'             =>  'required|email',
 	          'password'          =>  'required'
@@ -37,24 +35,31 @@ class ElearningController extends Controller
 
             $validator = Validator::make($allInput,$rules);
 
+
 		if ($validator->fails()) 
 		{
 			return redirect()->route('user_login')
 					     ->withErrors($validator)
 					     ->withInput();
 		}
-		else if (!$registerCheck) 
+	 	if (!$registerCheck) 
 		{
 			return redirect()->route('user_login')
 			        	     ->withErrors('Email or Password no exist!')
 			        	     ->withInput();
 		}
-		else if ($registerCheck && !$statusChecking) {
+		$userId = $registerCheck->id;
+		$statusCheckingObj = new token;
+		$statusChecking = $statusCheckingObj->StatusCheck($userId);
+		if ($registerCheck && !$statusChecking) {
 			$msg = 'Sorry! Your acount has not been activated yet.';
 			return redirect()->route('message',['message'=>$msg]);
 		}
 		else
+		{
+			Session::put('userId' , $userId);
 			return redirect()->route('home');
+		}
 
 	}
 	public function RegistrationForm()

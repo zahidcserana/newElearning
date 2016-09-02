@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokenTable extends Migration
+class CreateCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,12 @@ class CreateTokenTable extends Migration
      */
     public function up()
     {
-        Schema::create('token', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('member_id');
-            $table->enum('type', array('email_valid', 'forget_password'));
-            $table->string('token');
-            $table->enum('status', array('pending', 'active'));
-            $table->dateTime('validity');
+            $table->integer('course_id');
+            $table->string('title');
+            $table->double('credit');
+            $table->integer('supervisor_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTokenTable extends Migration
      */
     public function down()
     {
-        Schema::drop('token');
+        Schema::drop('courses');
     }
 }

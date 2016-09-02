@@ -13,10 +13,11 @@
   <div id="topimagePan"><img src="{{$asset}}images/blank.gif" alt="" /></div>
   <ul>
     <li><a href="{{route('home')}}">home</a></li>
-    <li><a href="#">about us</a></li>
+    
     <li><a href="{{route('registration')}}">registration</a></li>
     <li><a href="#">logout</a></li>
-    <li><a href="#">course</a></li>
+    <li><a href="{{route('course_view')}}">course</a></li>
+    <li><a href="{{route('lecture_view')}}">lecture</a></li>
     <li><a href="#">contact</a></li>
   </ul>
 </div>
